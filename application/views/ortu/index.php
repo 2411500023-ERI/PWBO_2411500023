@@ -52,11 +52,11 @@
                             <?php $no = 1; foreach ($list_ortu as $ortu): ?>
                             <tr>
                               <td><?= $no++; ?></td>
-<td><?= $ortu['name_ibu'] ?? '_'; ?></td>
-<td><?= $ortu['name_ayah'] ?? '_'; ?></td>
-<td><?= $ortu['hubungan'] ?? '-'; ?></td>
-<td><?= $ortu['telp'] ?? '-'; ?></td>
-<td><?= $ortu['alamat'] ?? '-'; ?></td>
+                               <td><?= $ortu['name_ibu'] ?? '_'; ?></td>
+                               <td><?= $ortu['name_ayah'] ?? '_'; ?></td>
+                               <td><?= $ortu['hubungan'] ?? '-'; ?></td>
+                               <td><?= $ortu['telp'] ?? '-'; ?></td>
+                               <td><?= $ortu['alamat'] ?? '-'; ?></td>
 
 
                                 <td>
