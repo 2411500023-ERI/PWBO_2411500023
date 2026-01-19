@@ -67,6 +67,9 @@
 
                                     <a href="<?= base_url('anak/hapus/') ?><?= $anak['id_anak']; ?>"> 
                                      <span class="badge bg-danger">Hapus</span></a>
+                                     
+                                      <a href="<?= base_url('anak/cetak/' . $anak['id_anak']); ?>" 
+                                       class="badge bg-info" target="_blank">Cetak</a>
                                 </td>
                             </tr>
                             <?php $no++; endforeach ?>

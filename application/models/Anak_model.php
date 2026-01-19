@@ -21,13 +21,18 @@ class Anak_model extends CI_Model {
         return ($this->db->affected_rows() == 1);
     }
 
-    // === TAMBAHAN UNTUK TUGAS ===
+   
 
     public function get_by_id($id) {
-        return $this->db
-            ->where('id_anak', $id)
-            ->get($this->_table)
-            ->row_array();
+       $this->db->select('
+            anak.*,
+            ortu.name_ibu,
+            ortu.name_ayah
+        ');
+        $this->db->from('anak');
+        $this->db->join('ortu', 'anak.ortu_id = ortu.id_ortu', 'left');
+        $this->db->where('anak.id_anak', $id);
+        return $this->db->get()->row_array();
     }
 
     public function hapus($id) {
@@ -38,5 +43,13 @@ class Anak_model extends CI_Model {
     public function ubah($data, $id) {
         $this->db->where('id_anak', $id);
         return $this->db->update($this->_table, $data);
+    }
+
+     public function cetak_anak_all() {
+        return $this->get_all();
+    }
+
+    public function cetak_anak_by_id($id) {
+        return $this->get_by_id($id);
     }
 }

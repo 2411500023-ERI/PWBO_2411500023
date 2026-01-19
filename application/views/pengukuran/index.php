@@ -66,10 +66,16 @@
                                         <a href="<?= base_url('pengukuran/ubah/'.$ukur['id_ukur']); ?>" class="badge bg-success">
                                             Ubah
                                         </a>
+
                                         <a href="<?= base_url('pengukuran/hapus/'.$ukur['id_ukur']); ?>"
                                            class="badge bg-danger"
                                            onclick="return confirm('Yakin ingin menghapus data ini?')">
                                             Hapus
+                                        </a>
+
+                                       <a href="<?= base_url('pengukuran/cetak/'.$ukur['id_ukur']); ?>" 
+                                            class="badge bg-info">
+                                             Cetak
                                         </a>
                                     </td>
                                 </tr>

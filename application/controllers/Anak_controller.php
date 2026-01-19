@@ -108,4 +108,53 @@ class Anak_controller extends CI_Controller {
         $this->Anak_model->ubah($data, $id);
         redirect('anak');
     }
+
+     public function cetak_anak($id) {
+        $data['anak'] = $this->Anak_model->get_by_id($id);
+        $this->load->view('template/header');
+        $this->load->view('anak/cetak_anak', $data); 
+        $this->load->view('template/footer');
+    }
+
+   public function download_pdf($id) {
+    $anak = $this->Anak_model->get_by_id($id);
+
+    if (!$anak) {
+        $this->session->set_flashdata('message', 'Data anak tidak ditemukan');
+        redirect('anak');
+    }
+
+    $this->load->library('Fpdf_gen');
+
+    $pdf = new Fpdf_gen();
+    $pdf->AddPage();
+    $pdf->SetFont('Arial','B',16);
+    $pdf->Cell(0,10,'DATA ANAK',0,1,'C');
+    $pdf->Ln(10);
+
+    $pdf->SetFont('Arial','',12);
+
+    $pdf->Cell(50,10,'Nama Anak',0,0);
+    $pdf->Cell(0,10,': '.$anak['name'],0,1);
+
+    $pdf->Cell(50,10,'Nama Ayah',0,0);
+    $pdf->Cell(0,10,': '.($anak['name_ayah'] ?? '-'),0,1);
+
+    $pdf->Cell(50,10,'Nama Ibu',0,0);
+    $pdf->Cell(0,10,': '.($anak['name_ibu'] ?? '-'),0,1);
+
+    $pdf->Cell(50,10,'BB Lahir',0,0);
+    $pdf->Cell(0,10,': '.$anak['bb_lahir'],0,1);
+
+    $pdf->Cell(50,10,'TB Lahir',0,0);
+    $pdf->Cell(0,10,': '.$anak['tb_lahir'],0,1);
+
+    $pdf->Cell(50,10,'JK',0,0);
+    $pdf->Cell(0,10,': '.$anak['jk'],0,1);
+
+    $pdf->Cell(50,10,'Tgl Lahir',0,0);
+    $pdf->Cell(0,10,': '.$anak['tgl_lahir'],0,1);
+
+    $pdf->Output('D', 'data_anak_'.$anak['id_anak'].'.pdf');
+  }
 }

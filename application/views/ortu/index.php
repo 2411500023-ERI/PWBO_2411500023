@@ -66,6 +66,9 @@
                                     <a href="<?= base_url('ortu/hapus/' . $ortu['id_ortu']); ?>" 
                                        class="badge bg-danger"
                                        onclick="return confirm('Yakin Hapus?')">Hapus</a>
+                                    
+                                    <a href="<?= base_url('ortu/cetak/' . $ortu['id_ortu']); ?>" 
+                                       class="badge bg-info" target="_blank">Cetak</a>
                                 </td>
                             </tr>
                             <?php endforeach; ?>

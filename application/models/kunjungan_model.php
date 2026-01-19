@@ -9,8 +9,8 @@ class Kunjungan_model extends CI_Model {
         $this->db->select('
             kunjungan.*,
             anak.name AS nama_anak,
-            ortu.name_ibu,
-            ortu.name_ayah
+            ortu.name_ayah,
+            ortu.name_ibu
         ');
         $this->db->from('kunjungan');
         $this->db->join('anak', 'kunjungan.anak_id = anak.id_anak', 'left');
@@ -19,15 +19,21 @@ class Kunjungan_model extends CI_Model {
     }
 
     public function get_by_id($id) {
-        return $this->db
-            ->where('id_kunjungan', $id)
-            ->get($this->table)
-            ->row_array();
+        $this->db->select('
+            kunjungan.*,
+            anak.name AS nama_anak,
+            ortu.name_ayah,
+            ortu.name_ibu
+        ');
+        $this->db->from('kunjungan');
+        $this->db->join('anak', 'kunjungan.anak_id = anak.id_anak', 'left');
+        $this->db->join('ortu', 'anak.ortu_id = ortu.id_ortu', 'left');
+        $this->db->where('kunjungan.id_kunjungan', $id);
+        return $this->db->get()->row_array();
     }
 
     public function tambah($data) {
-        $this->db->insert($this->table, $data);
-        return ($this->db->affected_rows() == 1);
+        return $this->db->insert($this->table, $data);
     }
 
     public function ubah($data, $id) {
@@ -40,4 +46,36 @@ class Kunjungan_model extends CI_Model {
             ->where('id_kunjungan', $id)
             ->delete($this->table);
     }
+
+  public function laporan_periode($tgl_awal, $tgl_akhir)
+{
+    $this->db->select('
+        kunjungan.*,
+        anak.name AS nama_anak,
+        ortu.name_ibu,
+        ortu.name_ayah
+    ');
+    $this->db->from('kunjungan');
+    $this->db->join('anak', 'anak.id_anak = kunjungan.anak_id', 'left');
+    $this->db->join('ortu', 'ortu.id_ortu = anak.ortu_id', 'left');
+
+    // 🔴 FILTER AMAN
+    if (!empty($tgl_awal) && !empty($tgl_akhir)) {
+        $this->db->where('tgl_kunjungan >=', $tgl_awal);
+        $this->db->where('tgl_kunjungan <=', $tgl_akhir);
+    }
+
+    return $this->db->get()->result_array();
+}
+
+  public function laporan_test($tgl_awal, $tgl_akhir)
+{
+    return $this->db
+        ->where('tgl_kunjungan >=', $tgl_awal)
+        ->where('tgl_kunjungan <=', $tgl_akhir)
+        ->get('kunjungan')
+        ->result_array();
+}
+
+
 }

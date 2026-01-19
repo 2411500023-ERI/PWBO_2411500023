@@ -65,6 +65,9 @@
                                            onclick="return confirm('Yakin ingin menghapus data ini?')">
                                             Hapus
                                         </a>
+                                         
+                                        <a href="<?= base_url('kunjungan/cetak/' . $kunjungan['id_kunjungan']); ?>" 
+                                       class="badge bg-info" target="_blank">Cetak</a>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>

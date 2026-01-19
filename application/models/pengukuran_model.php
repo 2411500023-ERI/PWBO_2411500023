@@ -21,7 +21,7 @@ class pengukuran_model extends CI_Model {
         return $this->db->get_where($this->table, ['id_ukur' => $id])->row_array();
     }
 
-    // Method baru: ambil detail termasuk nama anak dan tanggal kunjungan
+   
     public function get_detail_by_id($id) {
         $this->db->select('
             pengukuran.*,
@@ -51,4 +51,10 @@ class pengukuran_model extends CI_Model {
         $this->db->delete($this->table);
         return ($this->db->affected_rows() > 0);
     }
+
+    public function cetak_pengukuran_by_id($id)
+{
+    return $this->get_detail_by_id($id);
+}
+
 }

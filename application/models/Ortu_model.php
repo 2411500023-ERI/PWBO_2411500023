@@ -34,4 +34,12 @@ class Ortu_model extends CI_Model {
         $this->db->update($this->_table, $data);
         return ($this->db->affected_rows() != 1) ? false : true;
     }
+
+    public function cetak_ortu_all() {
+        return $this->get_all();
+    }
+
+    public function cetak_ortu_by_id($id) {
+        return $this->get_by_id($id);
+    }
 }

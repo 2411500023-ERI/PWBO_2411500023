@@ -74,4 +74,50 @@ class Kunjungan_controller extends CI_Controller {
         $this->session->set_flashdata('message', '<div class="alert alert-success">Berhasil dihapus</div>');
         redirect('kunjungan');
     }
+
+   public function cetak_kunjungan($id) {
+    $data['kunjungan'] = $this->Kunjungan_model->get_by_id($id);
+
+    $this->load->view('template/header');
+    $this->load->view('kunjungan/cetak_kunjungan', $data); 
+    $this->load->view('template/footer');
 }
+  public function download_pdf($id) {
+    $kunjungan = $this->Kunjungan_model->get_by_id($id);
+
+    if (!$kunjungan) {
+        $this->session->set_flashdata('message', 'Data kunjungan tidak ditemukan');
+        redirect('kunjungan');
+    }
+
+    $this->load->library('Fpdf_gen');
+
+    $pdf = new Fpdf_gen();
+    $pdf->AddPage();
+    $pdf->SetFont('Arial','B',16);
+    $pdf->Cell(0,10,'DATA KUNJUNGAN',0,1,'C');
+    $pdf->Ln(10);
+
+    $pdf->SetFont('Arial','',12);
+
+    $pdf->Cell(50,10,'Nama Anak',0,0);
+    $pdf->Cell(0,10,': '.$kunjungan['nama_anak'],0,1);
+
+    $pdf->Cell(50,10,'Nama Ayah',0,0);
+    $pdf->Cell(0,10,': '.$kunjungan['name_ayah'],0,1);
+
+    $pdf->Cell(50,10,'Nama Ibu',0,0);
+    $pdf->Cell(0,10,': '.$kunjungan['name_ibu'],0,1);
+
+    $pdf->Cell(50,10,'Tgl Kunjungan',0,0);
+    $pdf->Cell(0,10,': '.$kunjungan['tgl_kunjungan'],0,1);
+
+    $pdf->Cell(50,10,'Fasilitas',0,0);
+    $pdf->Cell(0,10,': '.$kunjungan['fasilitas'],0,1);
+
+    $pdf->Output('D', 'data_kunjungan_'.$kunjungan['id_kunjungan'].'.pdf');
+}
+
+}
+
+
