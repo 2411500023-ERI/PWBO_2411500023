@@ -59,23 +59,13 @@ class Kunjungan_model extends CI_Model {
     $this->db->join('anak', 'anak.id_anak = kunjungan.anak_id', 'left');
     $this->db->join('ortu', 'ortu.id_ortu = anak.ortu_id', 'left');
 
-    // 🔴 FILTER AMAN
+   
     if (!empty($tgl_awal) && !empty($tgl_akhir)) {
         $this->db->where('tgl_kunjungan >=', $tgl_awal);
         $this->db->where('tgl_kunjungan <=', $tgl_akhir);
     }
 
     return $this->db->get()->result_array();
-}
-
-  public function laporan_test($tgl_awal, $tgl_akhir)
-{
-    return $this->db
-        ->where('tgl_kunjungan >=', $tgl_awal)
-        ->where('tgl_kunjungan <=', $tgl_akhir)
-        ->get('kunjungan')
-        ->result_array();
-}
-
+  }
 
 }

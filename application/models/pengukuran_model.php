@@ -53,8 +53,27 @@ class pengukuran_model extends CI_Model {
     }
 
     public function cetak_pengukuran_by_id($id)
-{
+   {
     return $this->get_detail_by_id($id);
-}
+   }
+
+    public function filter_tanggal($tgl_awal, $tgl_akhir)
+   {
+    $this->db->select('
+        pengukuran.*,
+        kunjungan.tgl_kunjungan,
+        anak.name AS nama_anak
+    ');
+    $this->db->from('pengukuran');
+    $this->db->join('kunjungan', 'kunjungan.id_kunjungan = pengukuran.kunjungan_id', 'left');
+    $this->db->join('anak', 'anak.id_anak = kunjungan.anak_id', 'left');
+
+    $this->db->where('pengukuran.tgl_ukur >=', $tgl_awal);
+    $this->db->where('pengukuran.tgl_ukur <=', $tgl_akhir);
+
+    return $this->db->get()->result_array();
+    }
+
+
 
 }

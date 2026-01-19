@@ -123,7 +123,7 @@ class pengukuran_controller extends CI_Controller {
     $pdf = new Fpdf_gen();
     $pdf->AddPage();
     $pdf->SetFont('Arial','B',16);
-    $pdf->Cell(0,10,'DATA KUNJUNGAN',0,1,'C');
+    $pdf->Cell(0,10,'DATA PENGUKURAN',0,1,'C');
     $pdf->Ln(10);
 
     $pdf->SetFont('Arial','',12);

@@ -44,8 +44,19 @@ $route['pengukuran/cetak/(:num)'] = 'pengukuran_controller/cetak_pengukuran/$1';
 $route['pengukuran/download_pdf/(:num)'] = 'pengukuran_controller/download_pdf/$1';
 
 // LAPORAN KUNJUNGAN
-$route['laporan_kunjungan'] = 'Laporan_kunjungan_controller/index';
+$route['laporan/kunjungan'] = 'Laporan_kunjungan_controller/index';
+$route['laporan/kunjungan/download_pdf'] = 'Laporan_kunjungan_controller/download_pdf';
+$route['laporan_kunjungan'] = 'Laporan_kunjungan_controller';
 $route['laporan_kunjungan/download_pdf'] = 'Laporan_kunjungan_controller/download_pdf';
+
+// LAPORAN PENGUKURAN
+$route['laporan/pengukuran'] = 'Laporan_Pengukuran_controller/index';
+$route['laporan/pengukuran'] = 'Laporan_pengukuran_controller';
+$route['laporan/pengukuran/download_pdf'] = 'Laporan_pengukuran_controller/download_pdf';
+
+
+
+
 
 
 

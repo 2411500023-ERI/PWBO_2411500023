@@ -117,7 +117,8 @@ class Ortu_controller extends CI_Controller {
         $this->load->view('template/footer');
     }
 
-    public function download_pdf($id) {
+   public function download_pdf($id)
+{
     $ortu = $this->Ortu_model->get_by_id($id);
 
     if (!$ortu) {
@@ -125,34 +126,45 @@ class Ortu_controller extends CI_Controller {
         redirect('ortu');
     }
 
-    // Load library FPDF
     $this->load->library('Fpdf_gen');
-
-    // Buat PDF
     $pdf = new Fpdf_gen();
     $pdf->AddPage();
+
+    // Judul
     $pdf->SetFont('Arial','B',16);
     $pdf->Cell(0,10,'DATA ORANG TUA',0,1,'C');
-    $pdf->Ln(10);
+    $pdf->Ln(5);
 
+    // Header Tabel
+    $pdf->SetFont('Arial','B',12);
+    $pdf->Cell(60,10,'Keterangan',1,0,'C');
+    $pdf->Cell(130,10,'Data',1,1,'C');
+
+    // Isi Tabel
     $pdf->SetFont('Arial','',12);
-    $pdf->Cell(50,10,'Nama Ibu',0,0);
-    $pdf->Cell(0,10,': '.$ortu['name_ibu'],0,1);
 
-    $pdf->Cell(50,10,'Nama Ayah',0,0);
-    $pdf->Cell(0,10,': '.$ortu['name_ayah'],0,1);
+    $pdf->Cell(60,10,'Nama Ibu',1,0);
+    $pdf->Cell(130,10,$ortu['name_ibu'],1,1);
 
-    $pdf->Cell(50,10,'Hubungan',0,0);
-    $pdf->Cell(0,10,': '.$ortu['hubungan'],0,1);
+    $pdf->Cell(60,10,'Nama Ayah',1,0);
+    $pdf->Cell(130,10,$ortu['name_ayah'],1,1);
 
-    $pdf->Cell(50,10,'Telp',0,0);
-    $pdf->Cell(0,10,': '.$ortu['telp'],0,1);
+    $pdf->Cell(60,10,'Hubungan',1,0);
+    $pdf->Cell(130,10,$ortu['hubungan'],1,1);
 
-    $pdf->Cell(50,10,'Alamat',0,0);
-    $pdf->MultiCell(0,10,': '.$ortu['alamat'],0,1);
+    $pdf->Cell(60,10,'No. Telp',1,0);
+    $pdf->Cell(130,10,$ortu['telp'],1,1);
 
-    // Langsung download
-    $pdf->Output('D', 'data_ortu_'.$ortu['id_ortu'].'.pdf');
-  }
+    // Alamat pakai MultiCell
+    $pdf->Cell(60,10,'Alamat',1,0);
+    $x = $pdf->GetX();
+    $y = $pdf->GetY();
+    $pdf->MultiCell(130,10,$ortu['alamat'],1);
+    
+    $pdf->SetXY($x + 130, $y);
+
+    // Download
+    $pdf->Output('D', 'data_ortu_'.$id.'.pdf');
+}
 
 }
