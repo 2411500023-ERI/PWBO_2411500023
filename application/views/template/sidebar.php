@@ -85,8 +85,16 @@
                 <p>Pengukuran</p>
               </a>
             </li>
+
+            <li class="nav-item">
+              <a href="<?= base_url('transaksi') ?>" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Transaksi</p>
+              </a>
           </ul>
         </li>
+
+
 
       
         <li class="nav-item">

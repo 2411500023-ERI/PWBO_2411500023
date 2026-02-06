@@ -124,8 +124,9 @@ class pengukuran_controller extends CI_Controller {
     $pdf->AddPage();
     $pdf->SetFont('Arial','B',16);
     $pdf->Cell(0,10,'DATA PENGUKURAN',0,1,'C');
-    $pdf->Ln(10);
+    $pdf->Ln(5);
 
+     
     $pdf->SetFont('Arial','',12);
 
      $pdf->Cell(50,10,'Nama Anak',0,0);
